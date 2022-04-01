@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>ZimejumiJavaScript</title>
+        <style>
+            body {
+                text-align: center;
+                font-family: Verdana;
+            }
+            #pazinojums {
+                display: none;
+            }
+            #pieciPoga {
+                position: relative;
+            }
+        </style>
+
+    </head>
+    <body>
+        <p>Nebija norādīts, ko dotās pogas dara, tapēc pats izdomāju, ko viņas varētu darīt.</p>
+        <div id = "zimejumi">
+            <h2>Pirmais zīmējums</h2>
+            <p>
+                <canvas id = "pirmaisZimejums" width = "200" height = "100"
+                    style = "border: 1px solid red; background-color: #B7D4F5;"></canvas>
+                </p>
+                
+                <h2>Otrais zīmējums</h2>
+                <p>
+                    <canvas id = "otraisZimejums" width = "200" height = "100"
+                    style = "border: 1px solid red; background-color: #B7D4F5;"></canvas>
+                </p>
+                
+                <h2>Trešais zīmējums</h2>
+                <p>
+                    <canvas id = "tresaisZimejums" width = "200" height = "100"
+                    style = "border: 1px solid red; background-color: #B7D4F5;"></canvas>
+                </p>
+                
+                <h2>Ceturtais zīmējums</h2>
+                <p>
+                    <canvas id = "ceturtaisZimejums" width = "200" height = "100"
+                    style = "border: 1px solid red; background-color: yellow;"></canvas>
+                </p>
+                
+                <h2>Piektais zīmējums</h2>
+                <p id = "pieciPoga">
+                    <button onclick = "krasasPieci()">Gatavs zīmējums</button>
+                </p>
+                <p>
+                    <canvas id = "piektaisZimejums" width = "200" height = "100"
+                    style = "border: 1px solid red; background-color: #B7D4F5;"></canvas>
+                </p>
+        
+                <h2>Sestais zīmējums</h2>
+                <p>
+                    <button onclick = "krasasSesi()">Gatavs zīmējums</button>
+                </p>
+                <p>
+                    <canvas id = "sestaisZimejums" width = "200" height = "100"
+                    style = "border: 1px solid red; background-color: #B7D4F5;"></canvas>
+                </p>
+                <p>
+                     <button onclick = "delZimejumi()">Izdzēst zīmējumus</button>
+                </p>
+            </div>
+            <div id = "pazinojums">
+                <p>Lai atgūtu zīmējumus uzspiežat uz pogas.</p>
+                <p>
+                    <button onclick = "delZimejumi()">Atgūt zīmējumus</button>
+               </p>
+            </div>
+        <script>  
+                    //Mainīgie, kuri tiek vēlāk izmantoti.
+                    var pieciMaina = 0;
+                    var sesiMaina = 0;
+
+                    //Programma iegūst interneta pārlūka platumu mazai spēlītei, kuras darbības
+                    //notiek spiežot piektā zīmējuma pogu. Pieliku klāt, kā iegūt augstumu, lai pats neaizmirstu.
+                    const logaPlatums = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+                    //const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+                    var pamatne1 = document.getElementById("pirmaisZimejums");
+                    var zimejums1 = pamatne1.getContext("2d");
+                    zimejums1.lineWidth = 5;
+                    zimejums1.strokeStyle = "green";
+                    zimejums1.strokeRect(20, 20, 150, 70);
+                    zimejums1.lineWidth = 8;
+                    zimejums1.strokeStyle = "red";
+                    zimejums1.strokeRect(30, 30, 50, 50);
+                    
+                    var pamatne2 = document.getElementById("otraisZimejums");
+                    var zimejums2 = pamatne2.getContext("2d");
+                    zimejums2.fillStyle = "black";
+                    zimejums2.fillRect(40, 30, 50, 40);
+                    zimejums2.fillStyle = "yellow";
+                    zimejums2.fillRect(110, 30, 50, 40);
+                    
+                    var pamatne3 = document.getElementById("tresaisZimejums");
+                    var zimejums3 = pamatne3.getContext("2d");
+                    zimejums3.strokeStyle = "blue";
+                    zimejums3.lineWidth = 5;
+                    zimejums3.strokeRect(50, 10, 50, 40);
+                    zimejums3.strokeRect(100, 50, 50, 40);
+                    
+                    var pamatne4 = document.getElementById("ceturtaisZimejums");
+                    var zimejums4 = pamatne4.getContext("2d");
+                    zimejums4.strokeStyle = "blue";
+                    zimejums4.lineWidth = 3;
+                    zimejums4.strokeRect(70, 25, 50, 50);
+                    zimejums4.strokeRect(80, 35, 30, 30);
+                    
+                    //Izveidots un izmentots linear gradient kā krāsu mainītājs.
+                    var pamatne5 = document.getElementById("piektaisZimejums");
+                    var zimejums5 = pamatne5.getContext("2d");
+                    var linearGradient = zimejums5.createLinearGradient(0, 0, 200, 0);
+                    linearGradient.addColorStop(0, "red");
+                    linearGradient.addColorStop(1, "blue");
+                    zimejums5.fillStyle = linearGradient;
+                    zimejums5.fillRect(10, 10, 180, 80);
+
+                    //Izveidots un izmantots radial gradient kā krāsu mainītājs
+                    var pamatne6 = document.getElementById("sestaisZimejums");
+                    var zimejums6 = pamatne6.getContext("2d");
+                    var radialGradient = zimejums6.createRadialGradient(100, 50, 10, 100 , 50, 80); //(x0, y0, r0, x1, y1, r1)
+                    radialGradient.addColorStop(0, "yellow");
+                    radialGradient.addColorStop(1, "green");
+                    zimejums6.fillStyle = radialGradient;
+                    zimejums6.fillRect(10, 10, 180, 80);
+                    
+                    //Apgriež krāsas
+                    function krasasPieci() {
+                        //Man izmantojot true/false nestrādāja, izveidoju to pašu izmantojot skaitļus.
+                        if (pieciMaina % 2 == 0) {
+                            
+                            var linearGradient = zimejums5.createLinearGradient(0, 0, 200, 0);
+                            linearGradient.addColorStop(0, "blue");
+                            linearGradient.addColorStop(1, "red");
+                            zimejums5.fillStyle = linearGradient;
+                            zimejums5.fillRect(10, 10, 180, 80);
+                            
+                        } else {
+                            var linearGradient = zimejums5.createLinearGradient(0, 0, 200, 0);
+                            linearGradient.addColorStop(0, "red");
+                            linearGradient.addColorStop(1, "blue");
+                            zimejums5.fillStyle = linearGradient;
+                            zimejums5.fillRect(10, 10, 180, 80);
+                        }
+                        pieciMaina++;
+                        
+                        //Atbild par spēles darbību, uzspiedot uz pogas, kura ir zem uzraksta Piektais Zīmējums
+                        //redzēsiet kā tā spēlīte strādā.
+                        var pozicijaPuse = Math.floor(Math.random() * 2);
+                        if (pozicijaPuse == 0) {
+                            var pozicija = Math.floor(Math.random() * logaPlatums / 2) - 60;
+                        } else {
+                            var pozicija = -Math.floor(Math.random() * logaPlatums / 2) + 60;
+                        }
+
+                         var pozicjaPx =  pozicija + "px";
+                        document.getElementById("pieciPoga").style.left = pozicjaPx;
+    
+                        }
+                    
+
+                    function krasasSesi() {
+                        //Tas pats kas funkcijā pieciMaina().
+
+                        if (sesiMaina % 2 == 0) {
+                            var radialGradient = zimejums6.createRadialGradient(100, 50, 10, 100 , 50, 80);
+                            radialGradient.addColorStop(0, "green");
+                            radialGradient.addColorStop(1, "yellow");
+                            zimejums6.fillStyle = radialGradient;
+                            zimejums6.fillRect(10, 10, 180, 80);
+                        } else {
+                            var radialGradient = zimejums6.createRadialGradient(100, 50, 10, 100 , 50, 80);
+                            radialGradient.addColorStop(0, "yellow");
+                            radialGradient.addColorStop(1, "green");
+                            zimejums6.fillStyle = radialGradient;
+                            zimejums6.fillRect(10, 10, 180, 80);
+                        }
+                        sesiMaina++;
+                    }
+
+                    //Noņem un uzliekt atpakaļ zīmējumus vai paziņojumu par atgūšanu.
+                    function delZimejumi() {
+                        var visiZimejumi = document.getElementById("zimejumi");
+                        var bridinajums = document.getElementById("pazinojums");
+                        if (visiZimejumi.style.display == "none") {
+                            visiZimejumi.style.display = "block";
+                            bridinajums.style.display = "none";
+                        } else {
+                            visiZimejumi.style.display = "none";
+                            bridinajums.style.display = "block";
+                        }
+                    }
+            </script>
+    </body>
+</html>
+
+ZimejumaVeidosana0104_Jekabs.html
+Tiek attēlots vienums ZimejumaVeidosana0104_Jekabs.html.

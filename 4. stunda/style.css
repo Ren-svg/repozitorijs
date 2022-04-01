@@ -1,0 +1,29 @@
+.background
+{
+    background-color: beige;
+}
+
+.virsraksts
+{
+    font-size: 6vw;
+    text-align:center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.button
+{
+    border-color: black;
+    border-width:7px;
+    background-color: black;
+    color:white;
+    font-size: 3vw;
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    
+}
+.buttonTable
+{
+    /*border:1px solid black    (Izmantot priekš debug)*/
+    width:70%;
+    margin:auto;
+    text-align: center;
+}
